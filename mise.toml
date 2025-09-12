@@ -1,0 +1,7 @@
+[tools]
+poetry = "2.1"
+python = "3.13"
+
+[env]
+_.python.venv = { path = ".venv", create = true }
+DATABASE_URL = "sqlite:///url_shortener.db"
