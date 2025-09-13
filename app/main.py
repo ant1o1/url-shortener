@@ -6,7 +6,7 @@ from pydantic import HttpUrl
 from sqlalchemy.exc import IntegrityError
 
 from app.db import create_url, get_url_by_slug, increment_clicks, init_db, shutdown_db
-from app.models import ShortenIn, ShortenOut, Slug
+from app.models import ShortenedUrl, ShortenIn, ShortenOut, Slug
 from app.utils import generate_slug
 
 
@@ -92,3 +92,24 @@ def redirect_slug(slug: Slug) -> RedirectResponse:
 
     increment_clicks(slug)
     return RedirectResponse(url=url["long_url"], status_code=status.HTTP_302_FOUND)
+
+
+@app.get(
+    "/api/{slug}",
+    response_model=ShortenedUrl,
+    description="Retrieve metadata for a shortened URL.",
+    responses={
+        404: {"description": "URL not found"},
+    },
+)
+def get_url_info(slug: Slug) -> ShortenedUrl:
+    url = get_url_by_slug(slug=slug)
+    if url is None:
+        raise HTTPException(status_code=404, detail="URL not found")
+
+    return ShortenedUrl(
+        slug=slug,
+        long_url=url["long_url"],
+        created_at=url["created_at"],
+        clicks=url["clicks"],
+    )

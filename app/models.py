@@ -14,6 +14,19 @@ class ShortenIn(BaseModel):
     @field_validator("url")
     @classmethod
     def disallow_ip_and_localhost(cls, v: HttpUrl):
+        """
+        Validate that the URL host is neither an IP address nor 'localhost'.
+
+        Args:
+            v (HttpUrl): The URL provided in the request payload.
+
+        Raises:
+            ValueError: If the host is an IP address.
+            ValueError: If the host is 'localhost'.
+
+        Returns:
+            HttpUrl: The validated URL if it passes the checks.
+        """
         host = v.host or ""
         try:
             # If this succeeds, it's an IP
