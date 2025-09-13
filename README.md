@@ -31,9 +31,14 @@ The app will be available on http://localhost.
 docker build -t url-shortener .
 ```
 
+### Create .env file
+```bash
+cp .env.example .env
+```
+
 ### Run the app
 ```bash
-docker run --name url-shortener -p 80:80 url-shortener
+docker run --name url-shortener --env-file .env -p 80:80 url-shortener
 ```
 The app will be available on http://localhost.
 
@@ -41,7 +46,7 @@ The app will be available on http://localhost.
 ```bash
 pytest
 ```
-Tests remains to be implemented.
+Tests remain to be implemented.
 
 ## Documentation
 Interactive documentation is available on:
