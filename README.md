@@ -20,9 +20,9 @@ poetry install
 
 ### Run the app
 ```bash
-uvicorn app.main:app --host 0.0.0.0 --port 80
+uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
-The app will be available on http://localhost.
+The app will be available on http://localhost:8000.
 
 ## Docker deployment
 
@@ -38,9 +38,9 @@ cp .env.example .env
 
 ### Run the app
 ```bash
-docker run --name url-shortener --env-file .env -p 80:80 url-shortener
+docker run --name url-shortener --env-file .env -p 8000:8000 url-shortener
 ```
-The app will be available on http://localhost.
+The app will be available on http://localhost:8000.
 
 ## Run tests (local deployment only)
 ```bash
@@ -50,5 +50,5 @@ Tests remain to be implemented.
 
 ## Documentation
 Interactive documentation is available on:
-* http://localhost/docs (Swagger UI)
-* http://localhost/redoc (Redoc)
+* http://localhost:8000/docs (Swagger UI)
+* http://localhost:8000/redoc (Redoc)
